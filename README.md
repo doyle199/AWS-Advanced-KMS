@@ -8,3 +8,5 @@ Download this template to your workstation: https://github.com/doyle199/AWS-Usin
 ![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/Create_Stack.png)
 
 On the specify template page, select template is ready and upload a template file. Choose the template that was just downloaded to one’s workstation and click next.
+
+TO BE CONTINUED
