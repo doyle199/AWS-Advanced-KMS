@@ -468,3 +468,30 @@ On the preview and create page review and click create alarm.
 
 Once one is finished Schedule deletion for the CMKs.
 
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/customer.png)
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/key_deletion.png)
+
+Detach the Role from the EC2 instance.
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/Detach_Role.png)
+
+Detach the KMSWorkshop-InstanceInitRole from the customer policies that were created or delete the role if no longer needed.
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/Detach!.png)
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/Detach%40.png)
+
+Terminate the EC2 instance delete volumes.
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/Terminate_1.png)
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/Terminate_2.png)
+
+Delete the CloudFormation Stack.
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/Delete%20Stack.png)
+
+Delete unneeded security groups.
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/SG_Delete.png)
