@@ -292,6 +292,25 @@ The file now appears in the S3 - Bucket: kms-workshop. One can click on it to di
 
 To add encryption to the WebApp using server-side encryption with AWS KMS and the CMK that was created before, stop the server from running by pressing Control+C twice in the terminal. Download the version of the WebApp that adds server-side encryption with the following command "sudo wget https://raw.githubusercontent.com/aws-samples/aws-kms-workshop/master/WebAppEncSSE.py"
 
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/serverside%20encryption.png)
+
+Use the following command to list find ones CMK KeyID "aws kms list-aliases" and take note of the KeyID.
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/KeyID.png)
+
+Run the following command to start the server with encryption and enter the KeyId when it asks "sudo python WebAppEncSSE.py 80"
+
+Now go back to the browser and refresh the WebApp page. Upload the SampleFile-KMS.txt file again.
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/now_encrypted.png)
+
+Navigate to the S3 console. Click on the kmsworkshop bucket. Click on the SampleFile-KMS.txt.
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/S3-1.png)
+
+It says that it has server-side encryption and shows the KMS Key ID
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/KMS_Key_3.png?raw=true)
 
 
 
