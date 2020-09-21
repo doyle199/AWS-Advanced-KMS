@@ -110,6 +110,9 @@ If the operation failed, it’s because the role needs more access. Navigate to 
 
 ![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/Create_Policy.png)
 
+Type KMS into the search then click on it. Click the dropdown for Actions and Write under access level and check the box next to ImportKeyMaterial.
+
+
 
 
 
