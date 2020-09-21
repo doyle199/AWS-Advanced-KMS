@@ -86,4 +86,30 @@ Take note of the Key ID after running the command "aws kms create-key"
 
 ![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/create-key.png)
 
+To create a key alias named “FirstCMK” enter the following command into the terminal using one’s Key ID. "aws kms create-alias --alias-name alias/FirstCMK --target-key-id 'your-key-id'"
+
+Next one will generate a CMK by importing one’s own key material. Type the following command into the terminal and take note of the Key ID "Aws kms create-key –origin EXTERNAL"
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/external.png)
+
+To download the public key and import token to wrap the key, run the following command using the last Key ID "aws kms get-parameters-for-import --key-id external-key-id  --wrapping-algorithm RSAES_OAEP_SHA_1 --wrapping-key-spec RSA_2048"
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/wrap.png)
+
+Type “nano” into the terminal. Past the contents of the PublicKey into the editor, exit and save the file as pkey.b64. Do the same for the ImportToken contents and save it as token.b64. run the command "ls -l" to see the files. •	Next, run the following two commands: "openssl enc -d -base64 -A -in pkey.b64 -out pkey.bin" "openssl enc -d -base64 -A -in token.b64 -out token.bin"
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/nano.png)
+
+Now one will create the import material and encrypt it for the import using the OpenSSL library. Run the following command to create a key stored in a genkey.bin file: "openssl rand -out genkey.bin 32"
+
+Run the following command to wrap the key with the pkey.bin file one created: "openssl rsautl -encrypt -in genkey.bin -oaep -inkey pkey.bin -keyform DER -pubin -out WrappedKeyMaterial.bin" Which saves it in a file called WrappedKeyMaterial.bin.
+
+To import the key material run the following command using ones KeyID: "aws kms import-key-material --key-id your-key-id --encrypted-key-material fileb://WrappedKeyMaterial.bin --import-token fileb://token.bin --expiration-model KEY_MATERIAL_EXPIRES --valid-to 2021-02-01T12:00:00-08:00"
+
+If the operation failed, it’s because the role needs more access. Navigate to the IAM console, click on policies in the left menu, then click create policy.
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/Create_Policy.png)
+
+
+
 
