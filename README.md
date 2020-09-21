@@ -232,6 +232,24 @@ Run the following command in CLI to see the disk "lsblk"
 
 ![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/lsblk.png)
 
+Encrypted data can now be stored. AWS Encryption SDK can also be used to create client-side encryption.
+
+Encrypting using AWS KMS with no data key. Encrypt using CLI and decrypt using CMK.
+
+Create a new secret file by running the following command "echo "New secret text" > NewSecretFile.txt"
+
+Encrypt it with CMK and use an encryption context that will be needed later by running the followign command "aws kms encrypt --key-id alias/ImportedCMK --plaintext fileb://NewSecretFile.txt --encryption-context project=kmsworkshop --output text  --query CiphertextBlob | base64 --decode > NewSecretsEncryptedFile.txt"
+
+The new output file is NewSecretsEncryptedFile.txt. Check it with the following command "cat NewSecretsEncryptedFile.txt"
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/Encrypted_2.png)
+
+It’s encrypted. To decrypt it run the following command "aws kms decrypt --ciphertext-blob fileb://NewSecretsEncryptedFile.txt --encryption-context project=kmsworkshop --output text --query Plaintext | base64 --decode > NewSecretsDecryptedFile.txt"
+
+
+
+
+
 
 
 
