@@ -178,6 +178,64 @@ Take note of the Plaintext, KeyId, and CiphertextBlob information.
 
 ![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/generate_key.png)
 
+To encrypt the secret text using OpenSSL library, un the following command using the plaintext key "echo 'KEY-HERE' | base64 --decode > datakeyPlainText.txt
+
+Run the following command using the CipherTextBlob key which encrypts the samplesecret.txt with the datakeyplaintext.txt and saves it to encryptedsecret.txt "echo 'CIPHER-TEXT-BLOB-KEY-HERE' | base64 --decode > datakeyEncrypted.txt"
+
+Run the following code to encrypt the file "openssl enc -e -aes256 -in samplesecret.txt -out encryptedSecret.txt -k fileb://datakeyPlainText.txt"
+
+Run the following code to see if it was encrypted "more encryptedSecret.txt"
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/encrypted.png)
+
+Next enter the following command to delete the plaintext key "rm datakeyPlainText.txt"
+
+To decrypt the encrypted secret text, run the following command "aws kms decrypt --ciphertext-blob fileb://datakeyEncrypted.txt"
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/failed_1.png)
+
+It fails because one needs to provide the encryption context to decrypt. Run the following command "aws kms  decrypt --encryption-context project=workshop --ciphertext-blob fileb://datakeyEncrypted.txt"
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/unencrypted.png)
+
+This gets the Plaintext key back with AWS KMS and the appropriate CMK. Next one must decode it from base64 and use it to decrypt the encrypted secret file encryptedSecret.txt. Run the following command using the plaintext key "echo 'KEY-HERE' | base64 --decode > datakeyPlainText.txt"
+
+Next run the following code to decrypt "openssl enc -d -aes256 -in encryptedSecret.txt -k fileb://datakeyPlainText.txt"
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/to_encrypt.png)
+
+It has encrypted.
+
+To use serverside envelope encryption, navigate to the EC2 console. Click on volumes in the left menu then create volume.
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/Create_Volume.png)
+
+Make sure the AZ is the same as the instance because the disk can only be attached to instances in the same AZ. Check the encryption checkbox then select ImportedCMK for the master key.
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/create_volume_KMS.png)
+
+Create a tag Name: WorkshopEBS. Click on Create volume.
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/Create_Volume_2.png)
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/volume_success.png)
+
+Now a volume is encrypted that can be attached to an instance. Select the volume that was just created. Click the actions dropdown and select attach.
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/attach_volume_2.png)
+
+Choose the correct instance and click attach.
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/Attach_volume_4.png)
+
+Run the following command in CLI to see the disk "lsblk"
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/lsblk.png)
+
+
+
+
+
 
 
 
