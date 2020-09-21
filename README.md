@@ -418,13 +418,53 @@ Create a trail name and enter the name of one’s S3 bucket, create one if neede
 
 Continuing the CloudWatch rule creation on step 2 configure rule details enter a name and click create rule.
 
+![alt text](hhttps://github.com/doyle199/AWS-Using-KMS/blob/master/configure_rule_details_1.png)
 
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/configure_success.png)
 
+Now every time a Data Key is generated a notification will be sent to the email provided.
 
+To use CloudWatch Metrics with AWS KMS, Navigate to Amazon CloudWatch and select metrics on the left menu, one can see KMS in the all metrics tabs.
 
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/metric_1.png)
 
+Click into it to find the metric SecondsUntilKeyMaterialExperiation for one’s CMK built with the import key material. This metric will allow one to build an alarm into CloudWatch to warn one about the key material expiration. 
 
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/watch_1.png)
 
+To create and alarm click on alarms in the left menu and then create alarm.
 
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/create_alarm.png)
 
+On the specify metric and conditions page select metric.
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/Specify_Metric.png)
+
+Go into the KMS metric and select a SecondsUntilKeyMaterialExperiation and click select metric.
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/key_metric.png)
+
+In the metric section, one can change the statistic or period. Enter a metric name.
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/metric_conditions.png)
+
+In the Conditions section, choose a threshold type and condition, then click next.
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/conditions_1.png)
+
+On the configure actions page in the notification section, choose an alarm state trigger, select an SNS topic and choose where to send a notification to. Add autoscaling action or EC2 action if applicable and click next.
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/configure_actions.png)
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/autoscaling.png)
+
+Add a name and description on the next page and click next.
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/alarm_1.png)
+
+On the preview and create page review and click create alarm.
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/success_alarm.png)
+
+Once one is finished Schedule deletion for the CMKs.
 
