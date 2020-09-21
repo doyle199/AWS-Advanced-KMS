@@ -312,6 +312,7 @@ It says that it has server-side encryption and shows the KMS Key ID
 
 ![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/KMS_Key_3.png?raw=true)
 
+To check the policy for an AWS KMS run the following command with the correct KeyID "aws kms list-key-policies --key-id your-key-id"
 
 
 
