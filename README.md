@@ -112,6 +112,74 @@ If the operation failed, it’s because the role needs more access. Navigate to 
 
 Type KMS into the search then click on it. Click the dropdown for Actions and Write under access level and check the box next to ImportKeyMaterial.
 
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/importKey.png)
+
+Next click the dropdown for all resources. Click all resources then review policy.
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/review_policy.png)
+
+Name the policy KMS-Workshop-ImportMaterialPermissions then click create policy.
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/name_policy.png)
+
+Click on roles, search for KMSWorkshop-InstanceInitRole and click on it. Click attach policies. Search for KMS-Workshop-ImportMaterialPermissions, check the box next to it and click attach policy.
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/attach_permissions.png)
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/import_2.png)
+
+Give the new key an alias called “ImportedCMK” by running the following command using one’s KeyID "aws kms create-alias --alias-name alias/ImportedCMK --target-key-id 'YOUR-ARN'"
+
+Run the following command to see the key alias in the CLI: "aws kms list-aliases"
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/aliases.png)
+
+To rotate the AWS KMS CMKs, enable AWS automatic key rotation by running the following command using the KeyID for the FirstCMK key "aws kms enable-key-rotation --key-id YOUR-KEY"
+
+To rotate CMKs generated with AWS key material run the following command "aws kms create-key"
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/create-key_2.png)
+
+Run this command to update the FirstCMK with this new key using the new KeyID "aws kms update-alias --alias alias/FirstCMK --target-key-id KeyId". If the role does not have permission to update permissions navigate to IAM console and create a new policy. Choose KMS for service. Check the boxes shown in the screenshot below. Select all resources and click review policy. 
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/KMS_permissions.png)
+
+Name it KMSWorkshop-RotationDisableOps and click create policy. Attach the policy to the role as before. 
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/Attach_Policy_2.png)
+
+The FirstCMK alias is now associated with the new KeyID
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/new_KeyID.png)
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/create_policy_3.png)
+
+To rotate keys generated with one’s own key material, automatic is not an option so one must update the alias pointer. Create one’s own key as before, going through all the steps.
+
+Enter the following code to point the ImportedCMK to the ImportedCMK2 KeyID "aws kms update-alias --alias alias/ImportedCMK --target-key-id KeyID"
+
+To disable a key run the following with the correct KeyID "aws kms disable-key --key-id your-key-id"
+
+To enable it again run the following command with the correct Key ID "aws kms enable-key --key-id your-key-id"
+
+To schedule deletion of AWS created keys, a minimum of 7 days and a maximum of 30 days run the following with the correct KeyID or ARN "aws kms schedule-key-deletion --key-id your-key-id --pending-window-in-days 7"
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/schedule_deletion.png)
+
+To delete ones own keys they can be scheduled or deleted on demand run the following command "aws kms delete-imported-key-material --key-id  your-key-id"
+
+To use envelope encryption, first one must create the secret text to encrypt using the following command "sudo echo "Sample Secret Text to Encrypt" > samplesecret.txt"
+
+Next one must generate the data key referencing the ImportCMK one created using the following command "aws kms generate-data-key --key-id alias/ImportedCMK --key-spec AES_256 --encryption-context project=workshop"
+
+If that doesn’t work navigate to the IAM dashboard, select policy then create policy. Choose the KMS service and in the write dropdown under actions select GenerateDataKey, GenerateDataKeyWithoutPlaintext, Encrypt, Decrypt, and under tagging, TagResource, and UntagResource. Then choose all resources and give the policy the name KMSWorkshop-AdditionalPermissions and create policy. Then attach it to te KMSWorkshop-InstanceInitRole. Then it will work.
+
+Take note of the Plaintext, KeyId, and CiphertextBlob information.
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/generate_key.png)
+
+
+
 
 
 
