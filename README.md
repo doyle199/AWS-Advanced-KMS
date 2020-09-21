@@ -314,6 +314,39 @@ It says that it has server-side encryption and shows the KMS Key ID
 
 To check the policy for an AWS KMS run the following command with the correct KeyID "aws kms list-key-policies --key-id your-key-id"
 
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/default.png)
+
+Currently the policy is default. To see what it contains run the following command with the correct Key ID "aws kms get-key-policy --key-id your-key-id --policy-name default"
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/default_contents.png)
+
+The default policy gives the AWS root user account full access to the CMK. Next one will modify the permission of the role assigned to the instance allowing it to encrypt but not decrypt. Navigate to IAM, click on roles in the left, search for KMSWorkshop-InstanceInitRole and click on it. Find and click on the attached policy KMSWorkshop-AditionalPermissions and click on Edit Policy.
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/KMS_Permissions_2.png)
+
+Click on the JSON tab and remove the kms:Decrypt action. Click review policy and then save policy.
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/decrypt_4.png)
+
+Now run the server again with the following command and Key ID "sudo python WebAppEncSSE.py 80". Upload a new file to S3 with the WebApp and then try to download it. It will fail.
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/Fail_3.png)
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/fail_4.png)
+
+To enforce least privilege access and ensure the encryption role is only used form one’s account and not subject to cross-account role access policies one shall use a handy key policy. Navigate to the IAM console, click on roles, search for KMSWorkshop-InstanceInitRole and click on it. Find the Role ARN near the top and save it.
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/role_3.png)
+
+Navigate to the KMS dashboard, Click on customer managed keys in the left menu. Find the ImportedCMK keys.
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/KeyID_5.png)
+
+Scroll down to key policy, click edit and replace the script with the following then click save changes https://github.com/doyle199/AWS-Using-KMS/blob/master/template1.jscsrc. Use the correct user account ID number in the 3 places it says your-account-id
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/template1.jscsrc)
+
+
 
 
 
