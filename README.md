@@ -396,14 +396,27 @@ Navigate to the Amazon CloudWatch. Click on events in the left menu and then Get
 
 ![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/CloudWatch%20Events.png)
 
+Leave event pattern checked, select events by service in the dropdown. Select CloudTrail for the service name and AWS API call via CloudTrail for the event type. Select the circle for specific operations and enter GenerateDataKey in the box. On the right side of the screen select the +Add target button, on the first row change it to SNS topic. Then select snsworkshop for the topic and click configure details.
 
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/create_rule_2.png)
 
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/Create_rule_3.png)
 
+If CloudTrail is not enabled on one’s account, there will be a pop up. Go to CloudTrail and select create trail.
 
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/warning.png)
 
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/not_enabled.png)
 
+Create a trail name and enter the name of one’s S3 bucket, create one if needed, and select create.
 
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/Create_Trail.png)
 
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/trail_bucket.png)
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/create_trail_2.png)
+
+Continuing the CloudWatch rule creation on step 2 configure rule details enter a name and click create rule.
 
 
 
