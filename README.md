@@ -344,9 +344,57 @@ Navigate to the KMS dashboard, Click on customer managed keys in the left menu. 
 
 Scroll down to key policy, click edit and replace the script with the following then click save changes https://github.com/doyle199/AWS-Using-KMS/blob/master/template1.jscsrc. Use the correct user account ID number in the 3 places it says your-account-id
 
-![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/template1.jscsrc)
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/Edit_Key_Policy.png)
 
+Now the key can only be used with that account. Enforcing least privilege can be used by ensuring that CMK can only be called by one’s role. Enter the following in the key policy like before using the account ID number: https://github.com/doyle199/AWS-Using-KMS/blob/master/template2.jscsrc
 
+One can also include conditions with a key policy. To add MFA replace the policy with the following script as before. https://github.com/doyle199/AWS-Using-KMS/blob/master/template3.jscsrc
+
+The following command would enforece communication through an endpoint "aws kms list-keys --endpoint-url https://vpce-xxxxxxxxa-xxxxxx.kms.your-region.vpce.amazonaws.com"
+
+one can use the key policy to only allow certain operations from the VPC endpoint. The following policy will make AWS KMS only available internally within the AWS network for certain sensitive operations. https://github.com/doyle199/AWS-Using-KMS/blob/master/template4.jscsrc
+
+Tagging can be done during key creation or with a command like "aws kms tag-resource --key-id your-key-id --tags TagKey=project,TagValue=kmsworkshop"
+
+To list the resource tags use the following command "aws kms list-resource-tags --key-id your-key-id"
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/TagKey.png)
+
+One can use monitoring and logging with AWS KMS using CloudTrail. To see CloudTrail logs, create a data key with the corresponding AWS KMS the following command "aws kms generate-data-key --key-id alias/ImportedCMK --key-spec AES_256 --encryption-context project=workshop"
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/trials.png)
+
+That action has been logged in CloudTrail. Navigate to the CloudTrail console and select event history in the right menu. For the filter dropdown select event name and enter GenerateDataKey in the next box.
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/Event.png)
+
+The GenerateDataKey operations are shown.	Click on an event for more information.	There are many more ways to filter the information.
+
+To make real time AWS KMS notifications with AWS CloudTrail, Amazon CloudWatch, and Amazon SNS, navigate to the SNS console. Click topics in the left menu and then create topic.
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/create_topic.png)
+
+Enter a name and display name and click create.
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/success.png)
+
+Take note of the ARN. Click subscriptions in the left menu and then create subscription. 
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/create_subscriptions.png)
+
+Enter the topic ARN. Choose email for the protocol and enter the desired email, click create subscription.
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/success3.png)
+
+Confirm the subscription in one’s email.
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/subcription_email.png)
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/confirmed.png)
+
+Navigate to the Amazon CloudWatch. Click on events in the left menu and then Get Started. 
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/CloudWatch%20Events.png)
 
 
 
