@@ -63,3 +63,27 @@ Update the instance with the command"sudo yum update"
 
 ![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/CLI_connect.png)
 
+To create customer managed keys, run the command "aws configure". One may need the correct IAM Access Key and Secret Access Key. type the correct region code.
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/customer_managed_1.png)
+
+Run the following command "aws kms create-key"
+
+The key was created. If the key does not create one must create a policy to attach to the KMSWorkshop-InstanceInitRole.
+Navigate to the IAM console, click on roles in the left menu. Search for KMSWorkshop-InstanceInitRole and click on it.
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/Role_1.png)
+
+Click on attach policies.
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/attach_policies.png)
+
+Search for AWSKeyManagementSystemPowerUser and click on the dropdown and then the JSON button. Scroll down to the allow section to see what this allows to the role to do. Check the box next to the role and click attach policy.
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/Power_User.png)
+
+Take note of the Key ID after running the command "aws kms create-key"
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/create-key.png)
+
+
