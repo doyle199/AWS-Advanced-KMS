@@ -1,0 +1,35 @@
+•	{
+    "Version": "2012-10-17",
+    "Id": "key-default-1",
+    "Statement": [
+      {
+        "Sid": "Enable IAM User Permissions",
+        "Effect": "Allow",
+        "Principal": {
+          "AWS": "arn:aws:iam::your-account-id:root"
+        },
+        "Action": "kms:*",
+        "Resource": "*"
+      },
+      {
+        "Sid": "Allow for Use only within our VPC",
+        "Effect": "Deny",
+        "Principal": {
+          "AWS": "arn:aws:iam::your-account-id:role/KMSWorkshop-InstanceInitRole"
+        },
+        "Action": [
+          "kms:Encrypt",
+          "kms:Decrypt",
+          "kms:ReEncrypt*",
+          "kms:GenerateDataKey*"
+        ],
+        "Resource": "*",
+        "Condition": {
+          "StringNotEquals": {
+            "aws:sourceVpce": "vpce-1xxxxxxxx1"
+          }
+        }
+      }
+    ]
+  }
+  
