@@ -246,6 +246,60 @@ The new output file is NewSecretsEncryptedFile.txt. Check it with the following 
 
 It’s encrypted. To decrypt it run the following command "aws kms decrypt --ciphertext-blob fileb://NewSecretsEncryptedFile.txt --encryption-context project=kmsworkshop --output text --query Plaintext | base64 --decode > NewSecretsDecryptedFile.txt"
 
+To work with a WebApp, In the terminal make sure one is in the home directory with the following command "Pwd"
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/pwd.png)
+
+Make a new directory and install boto3 python library with the following two commands: "sudo mkdir SampleWebApp" "sudo pip install boto3"
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/boto_3.png)
+
+In the directory download the sample WebApp with wget with the following two commands: "cd SampleWebApp" "sudo wget  https://raw.githubusercontent.com/aws-samples/aws-kms-workshop/master/WebApp.py"
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/samplewebapp.png)
+
+A python application called WebApp.py was downloaded. Get the instance public IP on the EC2 console and save it for later.
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/Instane_ID.png)
+
+Run the following command to run the webserver "sudo python WebApp.py 80"
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/webServer.png)
+
+Navigate to the WebApp using the public IP in a browser. If it doesn’t work check the instance security group for HTTP(S) traffic. In the instance description tab find the security group. Click on it then click on it again on the next page. Click edit inbound security rules. Click add rule and add HTTP(S) from anywhere and click save rules.
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/SG_1.png)
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/SG_2.png)
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/SG_3.png)
+
+Now check the public IP in a browser.
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/WebApp%20Uploader_1.png)
+
+Create a sample text file using a text editor and save the file as SampleFile-KMS.txt. Upload it using the WebApp.
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/File_upload.png)
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/Upload_Success.png)
+
+The file now appears in the S3 - Bucket: kms-workshop. One can click on it to display it.
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/WebApp_Upload_2.png)
+
+![alt text](https://github.com/doyle199/AWS-Using-KMS/blob/master/sample_file.png)
+
+To add encryption to the WebApp using server-side encryption with AWS KMS and the CMK that was created before, stop the server from running by pressing Control+C twice in the terminal. Download the version of the WebApp that adds server-side encryption with the following command "sudo wget https://raw.githubusercontent.com/aws-samples/aws-kms-workshop/master/WebAppEncSSE.py"
+
+
+
+
+
+
+
+
+
 
 
 
