@@ -1,5 +1,5 @@
-# AWS-Using-KMS
-AWS Using KMS
+# AWS-Advanced-KMS
+AWS Advanced KMS
 
 You must have an AWS account, a user with the correct permissions to generate polices, create/modify roles in IAM, run CloudFormation templates, and launch EC2 instances, and a VPC (each region creates a default VPC for you now).
 
